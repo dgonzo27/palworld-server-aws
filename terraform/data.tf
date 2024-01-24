@@ -14,7 +14,7 @@ data "aws_ami" "debian-ami" {
 
   filter {
     name = "name"
-    values = ["debian-12-amd64-*"]
+    values = ["debian-11-amd64-*"]
   }
 
   filter {

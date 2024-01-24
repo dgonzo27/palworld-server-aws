@@ -9,6 +9,7 @@ This repository contains the infrastructure as code as well as the additional st
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Local Development Guide](#local-development-guide)
+  - [Server Setup Guide](#server-setup-guide)
 - [Need Support?](#need-support)
 - [Reporting Security Vulnerabilities and Security Bugs](#reporting-security-vulnerabilities-and-security-bugs)
 - [Contributing](#contributing)
@@ -89,6 +90,79 @@ Before jumping into the code, there are a few prerequisites.
     ```sh
     terraform apply
     ```
+
+### Server Setup Guide
+
+1. Update permissions on the SSH key.
+
+   ```sh
+   chmod 400 ~/.ssh/change_me_ssh.pem
+   ```
+
+2. SSH into the newly deployed EC2 instance.
+
+   ```sh
+   ssh -i ~/.ssh/change_me_ssh.pem admin@public-ip-address
+   ```
+
+3. Update and upgrade everything.
+
+   ```sh
+   sudo apt update && sudo apt dist-upgrade
+   ```
+
+4. Install SteamCMD with all its dependencies.
+
+   ```sh
+   sudo apt install software-properties-common
+
+   sudo apt-add-repository non-free
+   
+   sudo dpkg --add-architecture i386
+   
+   sudo apt update
+   
+   sudo apt install steamcmd
+   ```
+
+5. Install the Palworld dedicated server via SteamCMD.
+
+   ```sh
+   /usr/games/steamcmd +login anonymous +app_update 2394010 validate +quit
+   ```
+
+6. Create a `.steam` directory and move the newly installed folder inside of the `.steam` directory.
+
+   ```sh
+   mkdir .steam
+
+   mv ~/Steam/ ./.steam
+   ```
+
+7. Create symlinks to the `linux32` and `linux64` SDKs (this may be located somewhere different for you so just be sure to locate them).
+
+   ```sh
+   ln -s ~/.local/share/Steam/steamcmd/linux32 ~/.steam/sdk32
+
+   ln -s ~/.local/share/Steam/steamcmd/linux64 ~/.steam/sdk64
+   ```
+
+8. Launch the server for creating configuration files.
+
+   ```sh
+   cd ~/.steam/Steam/steamapps/common/PalServer
+
+   ./PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
+   ```
+
+9. Copy the default server settings into the appropriate directory and update the settings for your server.
+
+   ```sh
+   cp DefaultPalWorldSettings.ini Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
+
+   nano Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
+   ```
+
 
 ## Need Support?
 
