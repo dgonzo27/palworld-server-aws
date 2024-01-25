@@ -161,7 +161,7 @@ Before jumping into the code, there are a few prerequisites.
 1. Download the maintenance script and make it executable.
 
    ```sh
-   sudo wget https://raw.githubusercontent.com/dgonzo27/palworld-server-aws/master/scripts/palworld-maintenance.sh -P /home/admin/ && chmod +x /home/admin/palworld-maintenance.sh
+   sudo wget https://raw.githubusercontent.com/dgonzo27/palworld-server-aws/master/scripts/palworld-maintenance.sh -P /home/admin/ && sudo chmod +x /home/admin/palworld-maintenance.sh
    ```
 
 2. Create the backup folder.
