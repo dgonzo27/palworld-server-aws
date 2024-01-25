@@ -10,6 +10,7 @@ This repository contains the infrastructure as code as well as the additional st
   - [Prerequisites](#prerequisites)
   - [Local Development Guide](#local-development-guide)
   - [Server Setup Guide](#server-setup-guide)
+  - [Server Automation Guide](#server-automation-guide)
 - [Need Support?](#need-support)
 - [Reporting Security Vulnerabilities and Security Bugs](#reporting-security-vulnerabilities-and-security-bugs)
 - [Contributing](#contributing)
@@ -114,15 +115,7 @@ Before jumping into the code, there are a few prerequisites.
 4. Install SteamCMD with all its dependencies.
 
    ```sh
-   sudo apt install software-properties-common
-
-   sudo apt-add-repository non-free
-   
-   sudo dpkg --add-architecture i386
-   
-   sudo apt update
-   
-   sudo apt install steamcmd
+   sudo apt install software-properties-common && sudo apt-add-repository non-free && sudo dpkg --add-architecture i386 && sudo apt update && sudo apt install steamcmd
    ```
 
 5. Install the Palworld dedicated server via SteamCMD.
@@ -163,6 +156,31 @@ Before jumping into the code, there are a few prerequisites.
    nano Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
    ```
 
+### Server Automation Guide
+
+1. Download the maintenance script and make it executable.
+
+   ```sh
+   wget https://raw.githubusercontent.com/dgonzo27/palworld-server-aws/master/scripts/palworld-maintenance.sh -P /home/admin/ && chmod +x /home/admin/palworld-maintenance.sh
+   ```
+
+2. Create the backup folder.
+
+   ```sh
+   mkdir -p /home/admin/Palworld_backups
+   ```
+
+3. Download the service file.
+
+   ```sh
+   wget https://raw.githubusercontent.com/dgonzo27/palworld-server-aws/master/scripts/palworld.service -P /etc/systemd/system/
+   ```
+
+4. Enable and start the service.
+
+   ```sh
+   systemctl enable palworld.service && systemctl daemon-reload && systemctl start palworld.service
+   ```
 
 ## Need Support?
 
