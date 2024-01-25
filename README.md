@@ -161,7 +161,7 @@ Before jumping into the code, there are a few prerequisites.
 1. Download the maintenance script and make it executable.
 
    ```sh
-   wget https://raw.githubusercontent.com/dgonzo27/palworld-server-aws/master/scripts/palworld-maintenance.sh -P /home/admin/ && chmod +x /home/admin/palworld-maintenance.sh
+   sudo wget https://raw.githubusercontent.com/dgonzo27/palworld-server-aws/master/scripts/palworld-maintenance.sh -P /home/admin/ && chmod +x /home/admin/palworld-maintenance.sh
    ```
 
 2. Create the backup folder.
@@ -173,18 +173,18 @@ Before jumping into the code, there are a few prerequisites.
 3. Download the service file.
 
    ```sh
-   wget https://raw.githubusercontent.com/dgonzo27/palworld-server-aws/master/scripts/palworld.service -P /etc/systemd/system/
+   sudo wget https://raw.githubusercontent.com/dgonzo27/palworld-server-aws/master/scripts/palworld.service -P /etc/systemd/system/
    ```
 
 4. Enable and start the service.
 
    ```sh
-   systemctl enable palworld.service && systemctl daemon-reload && systemctl start palworld.service
+   sudo systemctl enable palworld.service && sudo systemctl daemon-reload && sudo systemctl start palworld.service
    ```
 
 ## Need Support?
 
-File an issue via [GitHub Issues](https://github.com/dgonzo27/rust-yew-tailwind/issues).
+File an issue via [GitHub Issues](https://github.com/dgonzo27/palworld-server-aws/issues).
 
 ## Reporting Security Vulnerabilities and Security Bugs
 

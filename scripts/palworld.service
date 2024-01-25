@@ -1,7 +1,5 @@
 [Unit]
 Description=Palworld Dedicated Server by dgonzo27
-Wants=network-online.target
-After=network-online.target
 
 [Service]
 User=admin
@@ -13,6 +11,3 @@ ExecStartPre=/home/admin/palworld-maintenance.sh
 ExecStart=/home/admin/.steam/Steam/steamapps/common/PalServer/PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS > /dev/null
 Restart=always
 RuntimeMaxSec=4h
-
-[Install]
-WantedBy=multi-user.target
