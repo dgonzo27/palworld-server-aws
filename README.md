@@ -124,36 +124,22 @@ Before jumping into the code, there are a few prerequisites.
    /usr/games/steamcmd +login anonymous +app_update 2394010 validate +quit
    ```
 
-6. Create a `.steam` directory and move the newly installed folder inside of the `.steam` directory.
+6. Create a `.steam` directory and create SDK symlinks.
 
    ```sh
-   mkdir .steam
-
-   mv ~/Steam/ ./.steam
+   mkdir /home/admin/.steam && cd /home/admin/.steam && ln -s /home/admin/.local/share/Steam/steamcmd/linux32 sdk32 && ln -s /home/admin/.local/share/Steam/steamcmd/linux64 sdk64
    ```
 
-7. Create symlinks to the `linux32` and `linux64` SDKs (this may be located somewhere different for you so just be sure to locate them).
+7. Launch the server for creating configuration files.
 
    ```sh
-   ln -s ~/.local/share/Steam/steamcmd/linux32 ~/.steam/sdk32
-
-   ln -s ~/.local/share/Steam/steamcmd/linux64 ~/.steam/sdk64
+   cd ~/Steam/steamapps/common/PalServer && ./PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
    ```
 
-8. Launch the server for creating configuration files.
+8. Copy the default server settings into the appropriate directory and update the settings for your server.
 
    ```sh
-   cd ~/.steam/Steam/steamapps/common/PalServer
-
-   ./PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
-   ```
-
-9. Copy the default server settings into the appropriate directory and update the settings for your server.
-
-   ```sh
-   cp DefaultPalWorldSettings.ini Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
-
-   nano Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
+   cp DefaultPalWorldSettings.ini Pal/Saved/Config/LinuxServer/PalWorldSettings.ini && nano Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
    ```
 
 ### Server Automation Guide
@@ -180,6 +166,32 @@ Before jumping into the code, there are a few prerequisites.
 
    ```sh
    sudo systemctl enable palworld.service && sudo systemctl daemon-reload && sudo systemctl start palworld.service
+   ```
+
+5. Stop the service.
+
+   ```sh
+   sudo systemctl stop palworld.service
+   ```
+
+### Restore Backup Guide
+
+1. Make sure you have a backup before running this command! Delete the previous server data.
+
+   ```sh
+   test -d /home/admin/Steam/steamapps/common/PalServer/Pal/Saved && rm -rf /home/admin/Steam/steamapps/common/PalServer/Pal/Saved
+   ```
+
+2. Select the backup you wish to restore.
+
+   ```sh
+   tar -xzvf /home/admin/Palworld_backups/Palworld_MODIFY-DATE-HERE.tar.gz -C /
+   ```
+
+3. Verify the restoration.
+
+   ```sh
+   test -d /home/admin/Steam/steamapps/common/PalServer/Pal/Saved && echo "RESTORATION SUCCESS"
    ```
 
 ## Need Support?
